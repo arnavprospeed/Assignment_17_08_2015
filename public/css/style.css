@@ -975,6 +975,18 @@ content: "\2014 \2009";
   width: auto;
 }
 
+/*Update home*/
+.input-text{
+  width: 500px;
+}
+.status-not-available{
+  color: red;
+}
+.status-not-available{
+  color: green;
+}
+
+
 @media screen and (max-width:768px){
   #main-section{
     padding-bottom: 10px;

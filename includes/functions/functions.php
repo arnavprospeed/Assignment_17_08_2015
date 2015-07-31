@@ -1,14 +1,7 @@
-
-
-<?php
-
-
-/************************** GENERIC FUNCTIONS *********************************/
-
-  function redirect($location){
+<?php function redirect($location){
     header("Location: ". $location);
   }
-
+/************************** GENERIC FUNCTIONS *********************************/
   function mysql_prep($string){
     global $connection;
     $escaped_string=mysql_prep_escape_string($connection,$string);
@@ -40,6 +33,7 @@
       return false;
     }
   }
+
 
   function check_available($username){
       global $connection;
@@ -133,5 +127,35 @@
     }
   }
 /******************** LOG IN and SIGN UP functions **************************/
+
+/******************** UPDATE HOME PAGE CMS **************************/
+
+  function fetch_tile_css(){
+    global $connection;
+    $query="SELECT * FROM tile_css";
+    $result=mysqli_query($connection,$query);
+    if(!$result){
+      echo "Query failed";
+    }
+    else
+      return $result;
+  }
+
+  function add_article($title,$article_type,$tile_css,$link,$icon_link){
+    global $connection;
+    $query="INSERT INTO articles_list (title,article_tag,css_class,link,icon_link,published_date) VALUES('";
+    $query.="{$title}','{$article_type}','{$tile_css}','{$link}','{$icon_link}',now()";
+    $query.=")";
+    echo $query;
+    $result=mysqli_query($connection,$query);
+    if($result){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+/******************** UPDATE HOME PAGE CMS **************************/
 
 ?>

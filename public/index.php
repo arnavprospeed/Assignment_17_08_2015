@@ -22,7 +22,7 @@
             </div> <!--column-->
 
             <?php
-              $query="SELECT * FROM articles_list where article_tag=\"news\" ORDER BY published_date ASC";
+              $query="SELECT * FROM articles_list where article_tag=\"news\" ORDER BY published_date DESC";
               global $connection;
               $result=mysqli_query($connection,$query);
               if(!$result){

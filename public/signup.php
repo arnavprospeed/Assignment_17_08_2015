@@ -18,13 +18,15 @@
 
 	}
 ?>
-<html>
-<body>
+<div class="main">
+	<div class="content container" id="main-section">
+		<br><br>
 	<h3> Enter details for signing up:</h3>
 	<form name="signup" action="signup.php" method="POST" onsubmit="return validateForm()">
-		<input type="text" placeholder="new username" id="username" name="username"
+		<input type="text" placeholder="new username" onBlur="checkAvailability()" id="username" name="username"
 		value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" required
        oninvalid="this.setCustomValidity('User ID is a must')" oninput="setCustomValidity('')"></input>
+			 <span id="user-availability-status"></span>
 			 <!--<input type="button" value="Check Availability" onsubmit="signup.php"></input>-->
 			 <br>
 		<input type="password" placeholder="password" id="password" name="password" required
@@ -49,5 +51,6 @@
 	<br>
 	<a href="index.php">Have an account? Log in</a>
 	<br><br>
-</body>
+</div>
+</div>
 <?php include("../includes/layouts/footer.php"); ?>

@@ -59,3 +59,70 @@ $(window).resize(function(){
   js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+
+
+
+function validateForm() {
+    //Phone number validation
+    var x = document.forms["update-form"]["phone_no"].value;
+    var test_phoneno = /^\d{10}$/;
+
+    if(!x.match(test_phoneno))
+       {
+         alert("hello p");
+         return false;
+       }
+
+    //username validation
+    var x = document.forms["update-form"]["username"].value;
+    var test_username = "";
+    if(!x.match(test_username))
+       {
+          alert("hello u");
+          return false;
+       }
+
+    //password validation
+    x = document.forms["update-form"]["password"].value;
+    var test_password = "";
+    if(!x.match(test_password))
+       {
+         alert("hello p");
+         return false;
+       }
+
+    //Full name validation
+    x = document.forms["update-form"]["name"].value;
+    var test_name = /^[A-Za-z]+$/;
+    if(!x.match(test_name))
+       {
+         alert("hello n");
+         return false;
+       }
+
+    //email id validation
+    x = document.forms["update-form"]["email_id"].value;
+    var test_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    if(!x.match(test_email))
+       {
+         alert("hello e");
+           return false;
+       }
+       alert("yo");
+    return true;
+}
+
+function checkAvailability() {
+  $("#username_availability_result").show();
+  jQuery.ajax({
+    url: "check_free_username.php",
+    data:'username='+$("#username").val(),
+    type: "POST",
+    success:function(data){
+      $("#user-availability-status").html(data);
+      $("#loaderIcon").hide();
+    },
+    error:function (){}
+  });
+}
