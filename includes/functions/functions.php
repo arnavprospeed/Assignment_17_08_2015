@@ -1,6 +1,10 @@
-/************* LOG IN and SIGN UP functions **************/
+
 
 <?php
+
+
+/************************** GENERIC FUNCTIONS *********************************/
+
   function redirect($location){
     header("Location: ". $location);
   }
@@ -10,6 +14,10 @@
     $escaped_string=mysql_prep_escape_string($connection,$string);
     return $escape_string;
   }
+
+/************************** GENERIC FUNCTIONS *********************************/
+
+/********************* LOG IN and SIGN UP functions ***************************/
 
   function validate_user($username,$password){
     global $connection;
@@ -124,6 +132,6 @@
       redirect("index.php");
     }
   }
-
+/******************** LOG IN and SIGN UP functions **************************/
 
 ?>
