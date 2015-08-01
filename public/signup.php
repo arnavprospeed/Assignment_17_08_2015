@@ -23,7 +23,7 @@
 		<br><br>
 	<h3> Enter details for signing up:</h3>
 	<form name="signup" action="signup.php" method="POST" onsubmit="return validateForm()">
-		<input type="text" placeholder="new username" onBlur="checkAvailability()" id="username" name="username"
+		<input type="text" placeholder="new username" id="username" name="username"
 		value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" required
        oninvalid="this.setCustomValidity('User ID is a must')" oninput="setCustomValidity('')"></input>
 			 <span id="user-availability-status"></span>

@@ -113,8 +113,8 @@ function validateForm() {
        alert("yo");
     return true;
 }
+$( "#username" ).keyup(function() {
 
-function checkAvailability() {
   $("#username_availability_result").show();
   jQuery.ajax({
     url: "check_free_username.php",
@@ -126,7 +126,8 @@ function checkAvailability() {
     },
     error:function (){}
   });
-}
+
+});
 
 
 $(document).ready(function(){

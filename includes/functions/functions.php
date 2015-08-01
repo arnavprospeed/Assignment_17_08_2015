@@ -4,8 +4,8 @@
 /************************** GENERIC FUNCTIONS *********************************/
   function mysql_prep($string){
     global $connection;
-    $escaped_string=mysql_prep_escape_string($connection,$string);
-    return $escape_string;
+    $escaped_string=mysqli_real_escape_string($connection,$string);
+    return $escaped_string;
   }
 
 /************************** GENERIC FUNCTIONS *********************************/
@@ -35,14 +35,21 @@
   }
 
 
-  function check_available($username){
+  function check_free_username($username){
       global $connection;
       $safe_username=mysql_prep($username);
-      $query="SELECT user_id FROM user_auth WHERE user_id = '{$safe_username}'";
-      $checkUserID=mysqli_query($connection,$query);
-      if (mysqli_num_rows($checkUserID)>0){
+
+      //mysql query to select field username if it's equal to the username that we check '
+      $query='select user_id from user_auth where user_id = "'. $safe_username .'"';
+      //echo "$query";
+      $result = mysqli_query($connection,$query);
+      //if number of rows fields is bigger them 0 that means it's NOT available '
+      //and we send 0 to the ajax request
+      if (mysqli_num_rows($result)>0){
         return false;
       }
+      //else if it's not bigger then 0, then it's available '
+      //and we send 1 to the ajax request
       else{
         return true;
       }
@@ -171,9 +178,13 @@
     $query.=")";
     //echo $query;
     $result=mysqli_query($connection,$query);
-    $id=mysqli_insert_id($connection);
+
     if($result){
-      return true;
+				if(create_article_page(mysqli_insert_id($connection)))
+          return true;
+        else {
+          return false;
+        }
     }
     else{
       return false;
@@ -181,10 +192,22 @@
   }
 
   function create_article_page($article_id){
-    $myfile = fopen("batman.php", "w") or die("Unable to open file!");
-    $txt = "<?php echo \"Batman PC sales suspended\"?>\n";
+    global $connection;
+    $query="SELECT ";
+    $query.="title,link FROM articles_list WHERE article_id='";
+    $query.=$article_id;
+    $query.="'";
+    echo $query;
+    $fetched_title=mysqli_query($connection,$query);
+    $row=mysqli_fetch_assoc($fetched_title);
+    $title=$row["title"];
+    $link=$row["link"];
+    echo $title;
+    $myfile = fopen("{$link}", "w") or die("Unable to open file!");
+    $txt = "<?php echo \"{$title}\"?>\n";
     fwrite($myfile, $txt);
     fclose($myfile);
+    return true;
   }
 
   function upload_image($type){

@@ -979,11 +979,11 @@ content: "\2014 \2009";
 .input-text{
   width: 500px;
 }
-.status-not-available{
-  color: red;
+.status-available{
+  color: green;
 }
 .status-not-available{
-  color: green;
+  color: red;
 }
 
 
