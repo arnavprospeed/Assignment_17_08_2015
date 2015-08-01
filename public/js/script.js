@@ -61,6 +61,7 @@ $(window).resize(function(){
 }(document, 'script', 'facebook-jssdk'));
 
 
+//CMS scripts
 
 
 function validateForm() {
@@ -126,3 +127,55 @@ function checkAvailability() {
     error:function (){}
   });
 }
+
+
+$(document).ready(function(){
+  configureDropDownLists(article_type,article_tag);
+});
+
+
+
+function configureDropDownLists(article_type,article_tag) {
+    var news = new Array('News', 'Insight', 'Reveal');
+    var reviews = new Array('Reviews', 'Previews');
+    var trailers = new Array('Trailers', 'Gameplay');
+    var tweaks = new Array('Tweaks', 'Fixes', 'Mods');
+
+    switch (article_type.value) {
+        case 'news':
+            article_tag.options.length = 0;
+            for (i = 0; i < news.length; i++) {
+                createOption(article_tag, news[i], news[i]);
+            }
+            break;
+        case 'reviews':
+            article_tag.options.length = 0;
+        for (i = 0; i < reviews.length; i++) {
+            createOption(article_tag, reviews[i], reviews[i]);
+            }
+            break;
+        case 'trailers':
+            article_tag.options.length = 0;
+            for (i = 0; i < trailers.length; i++) {
+                createOption(article_tag, trailers[i], trailers[i]);
+            }
+            break;
+        case 'tweaks':
+            article_tag.options.length = 0;
+            for (i = 0; i < tweaks.length; i++) {
+                createOption(article_tag, tweaks[i], tweaks[i]);
+            }
+                break;
+            default:
+                article_tag.options.length = 0;
+            break;
+    }
+
+}
+
+function createOption(article_type, text, value) {
+        var opt = document.createElement('option');
+        opt.value = value;
+        opt.text = text;
+        article_type.options.add(opt);
+    }

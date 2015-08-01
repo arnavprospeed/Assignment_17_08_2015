@@ -22,12 +22,7 @@
             </div> <!--column-->
 
             <?php
-              $query="SELECT * FROM articles_list where article_tag=\"news\" ORDER BY published_date DESC";
-              global $connection;
-              $result=mysqli_query($connection,$query);
-              if(!$result){
-                echo "Query failed";
-              }
+              $result=fetch_article_list("News",3);
               while($row = mysqli_fetch_assoc($result)){
                 echo "<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
                         <div class=\"tile ";
@@ -52,6 +47,25 @@
 
         <h2>Reviews</h2>
           <div class="row">
+
+            <?php
+              $result=fetch_article_list("Reviews",4);
+              $count=0;
+              while($count<2){
+                $row = mysqli_fetch_assoc($result);
+                echo "<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
+                        <div class=\"tile ";
+                echo $row["css_class"];
+                echo "\">";
+                echo "<h4 class=\"article-tag\">".$row["article_tag"]."</h4>";
+                echo "<a href=\"".$row["link"]."\"><img src=\"".$row["icon_link"]."\" alt=\"img\" class=\"icon\"></a> <!--350px x 200px-->";
+                echo "<a href=\"".$row["link"]."\"><p class=\"title\">".$row["title"]."</p></a>";
+                echo  "</div> <!--tile second-column-->
+                </div> <!--column-->";
+                $count++;
+
+              }
+            ?>
 
             <div class="tile col-md-4 col-sm-6 col-xs-12">
               <div class="tile fifth-column">
@@ -164,6 +178,18 @@
                 </div> <!--top games list-->
               </div> <!--tile second-column-->
 
+              <?php
+              $row = mysqli_fetch_assoc($result);
+              echo "<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
+                      <div class=\"tile ";
+              echo $row["css_class"];
+              echo "\">";
+              echo "<h4 class=\"article-tag\">".$row["article_tag"]."</h4>";
+              echo "<a href=\"".$row["link"]."\"><img src=\"".$row["icon_link"]."\" alt=\"img\" class=\"icon\"></a> <!--350px x 200px-->";
+              echo "<a href=\"".$row["link"]."\"><p class=\"title\">".$row["title"]."</p></a>";
+              echo  "</div> <!--tile second-column-->
+              </div> <!--column-->";
+              ?>
               <div  class="tile col-md-4 col-sm-6 col-xs-12">
                 <div class="tile first-column">
                   <h4 class="article-tag">Review</h4>
@@ -266,6 +292,19 @@
                 </ul>
                 </div> <!--top games list-->
               </div> <!--tile second-column-->
+
+              <?php
+              $row = mysqli_fetch_assoc($result);
+              echo "<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
+                      <div class=\"tile ";
+              echo $row["css_class"];
+              echo "\">";
+              echo "<h4 class=\"article-tag\">".$row["article_tag"]."</h4>";
+              echo "<a href=\"".$row["link"]."\"><img src=\"".$row["icon_link"]."\" alt=\"img\" class=\"icon\"></a> <!--350px x 200px-->";
+              echo "<a href=\"".$row["link"]."\"><p class=\"title\">".$row["title"]."</p></a>";
+              echo  "</div> <!--tile second-column-->
+              </div> <!--column-->";
+              ?>
 
             <div class="tile col-md-4 col-sm-6 col-xs-12">
               <div class="tile seventh-column">
@@ -379,6 +418,22 @@
         <h2>Trailers & Annoucements</h2>
           <div class="row">
 
+            <?php
+              $result=fetch_article_list("Trailers",3);
+              while($row = mysqli_fetch_assoc($result)){
+                echo "<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
+                        <div class=\"tile ";
+                echo $row["css_class"];
+                echo "\">";
+                echo "<h4 class=\"article-tag\">".$row["article_tag"]."</h4>";
+                echo "<a href=\"".$row["link"]."\"><img src=\"".$row["icon_link"]."\" alt=\"img\" class=\"icon\"></a> <!--350px x 200px-->";
+                echo "<a href=\"".$row["link"]."\"><p class=\"title\">".$row["title"]."</p></a>";
+                echo  "</div> <!--tile second-column-->
+                </div> <!--column-->";
+
+              }
+            ?>
+
             <div class="tile col-md-4 col-sm-6 col-xs-12">
               <div class="tile eighth-column">
                 <h4 class="article-tag">Gameplay</h4>
@@ -413,6 +468,22 @@
 
         <h2>Tweaks & Fixes</h2>
           <div class="row">
+
+
+            <?php
+              $result=fetch_article_list("Tweaks",3);
+              while($row = mysqli_fetch_assoc($result)){
+                echo "<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
+                        <div class=\"tile ";
+                echo $row["css_class"];
+                echo "\">";
+                echo "<h4 class=\"article-tag\">".$row["article_tag"]."</h4>";
+                echo "<a href=\"".$row["link"]."\"><img src=\"".$row["icon_link"]."\" alt=\"img\" class=\"icon\"></a> <!--350px x 200px-->";
+                echo "<a href=\"".$row["link"]."\"><p class=\"title\">".$row["title"]."</p></a>";
+                echo  "</div> <!--tile second-column-->
+                </div> <!--column-->";
+              }
+            ?>
 
             <div class="tile col-md-4 col-sm-6 col-xs-12">
               <div class="tile first-column">
