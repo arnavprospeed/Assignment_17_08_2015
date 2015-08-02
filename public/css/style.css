@@ -10,6 +10,7 @@ body { display: none; }
   padding-top:0px;
 }
 #main-section{
+  min-height:562px;
   background-color: #FFFFFF;
   box-shadow: 0 0 8px #555;
   padding: 20px 20px 20px 20px;
@@ -986,11 +987,14 @@ content: "\2014 \2009";
   color: red;
 }
 .article_preview_col{
-  height: 360px;
+  height: 430px;
   border-left: 1px solid #eee;
 }
 #article_preview{
   padding: 10px 10px 10px 10px;
+}
+progress{
+  display: none;
 }
 
 @media screen and (max-width:768px){

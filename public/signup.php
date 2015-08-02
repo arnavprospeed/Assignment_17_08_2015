@@ -44,7 +44,7 @@
 		value="<?php echo isset($_POST['email_id']) ? $_POST['email_id'] : '' ?>" required
 	 		 oninvalid="this.setCustomValidity('Please enter your email id')" oninput="setCustomValidity('')"></input>
 		<br>
-		<input type="submit" id="signup.php" name="Submit"></input>
+		<input type="submit" id="submit" name="Submit"></input>
 	</form>
 	<br>
 	<hr>

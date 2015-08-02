@@ -117,7 +117,7 @@ function validateForm() {
 $( "#username" ).keyup(function() {
 
   $("#username_availability_status").show();
-  if($('#username').val.length<6){
+  if($('#username').val().length<6){
     document.getElementById("username_availability_status").innerHTML = "Too short!";
   }
   else{
@@ -136,20 +136,38 @@ $( "#username" ).keyup(function() {
 });
 
 function article_preview() {
-
+  $("progress").show();
+  var formData = new FormData($('form')[0]);
   $("#article_preview").show();
   jQuery.ajax({
     url: "article_preview.php",
-    data:$("#update-home").serialize(),
+    xhr: function() {  // Custom XMLHttpRequest
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // Check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
+                 // For handling the progress of the upload
+            }
+            return myXhr;
+    },
     type: "POST",
+    data: formData,
+    //Options to tell jQuery not to process data or worry about content-type.
+    cache: false,
+    contentType: false,
+    processData: false,
     success:function(data){
-      $("#user-availability-status").html(data);
-      $("#loaderIcon").hide();
+      //alert("hello1");
+      $("#article_preview").html(data);
     },
     error:function (){}
   });
 }
 
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
 
 $(document).ready(function(){
   configureDropDownLists(article_type,article_tag);

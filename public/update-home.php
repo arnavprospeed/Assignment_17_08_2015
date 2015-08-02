@@ -27,15 +27,14 @@
 
 <div class="main">
 	<div class="content container" id="main-section">
-		<br>
-		<br><br><br>
 		<br><br>
+		<h4>**Please view this page on IE10, Google Chrome or Mozilla Firefox only.</h2>
 <div class="row">
 	<div class="col-md-6 col-sm-12 col-xs-12">
 	<!-- heading -->
 	<h3> Enter details Home page: New article</h3>
 	<!-- form -->
-	<form name="update-home" action="update-home.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+	<form name="update-home" id="update-home" action="update-home.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
 
 		<!-- Title of article -->
 		<input  class="input-text rich-text" type="text" placeholder="Title" id="title" name="title"
@@ -85,7 +84,7 @@
 		<br>
 
 		<input type="submit" id="submit" name="submit"></input>&nbsp
-		<input type="button" id="article_preview_button" name="article_preview_button" value="Preview" onclick="article_preview()"></input>
+		<input type="button" id="article_preview_button" name="article_preview_button" value="Preview" onclick="article_preview();"></input>
 	</form>
 	<?php
 	if(isset($update_confirmation)){
@@ -96,11 +95,12 @@
 </div>
 <div class="col-md-6 col-sm-12 col-xs-12 article_preview_col">
 	<h3>preview</h3>
+	<progress></progress>
 	<div id="article_preview"></div>
 </div>
 </div>
-	<hr>
 	
+
 </div>
 </div>
 <?php include("../includes/layouts/footer.php"); ?>

@@ -3,11 +3,10 @@
 <?php
 
 $preview=generate_article_preview($_POST['title'],$_POST['article_tag'],$_POST['tile_css']);
-echo "hello";
+if($_FILES["icon_image"]){echo "Yes";}
 if($preview){
     echo $preview;
 }
 else{
     echo "Preview generation failed";
-}
- ?>
+}?>

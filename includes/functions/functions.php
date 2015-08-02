@@ -151,7 +151,7 @@
 
   function fetch_tile_css(){
     global $connection;
-    $query="SELECT * FROM tile_css";
+    $query="SELECT * FROM tile_css ORDER BY position ASC";
     $result=mysqli_query($connection,$query);
     if(!$result){
       echo "Query failed";
@@ -228,15 +228,14 @@
     }
 
     if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
+    echo "Sorry, file already exists. Using existing image. To Change image upload with a different name";
     $uploadOk = 0;
     }
-    $icon_link=0;
+    $icon_link=$target_dir .$_FILES["icon_image"]["name"];
     if($uploadOk==1){
       if (move_uploaded_file($_FILES["icon_image"]["tmp_name"], $target_file)) {
           echo "The file ". basename( $_FILES["icon_image"]["name"]). " has been uploaded.";
-          $icon_link=$target_dir .$_FILES["icon_image"]["name"];
-          echo $icon_link;
+          //echo $icon_link;
           return $icon_link;
       } else {
           echo "Sorry, there was an error uploading your file.";
@@ -244,19 +243,33 @@
     }
   }
   else {
-    echo "Sorry";
+    //echo "Sorry";
     return $icon_link;
   }
 }
+
+  function unserializeForm($str) {
+    $returndata = array();
+    $strArray = explode("&", $str);
+    $i = 0;
+    foreach ($strArray as $item) {
+        $array = explode("=", $item);
+        $returndata[$array[0]] = $array[1];
+    }
+
+    return $returndata;
+  }
+
   function generate_article_preview($title,$article_tag,$tile_css){
     $icon_link=upload_image("preview");
-    $preview="<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
+    $preview="<div class=\"row\" style=\"height:220px;\"><hr><div class=\"tile col-md-4 col-sm-6 col-xs-12\" style=\"width:375px;\">
             <div class=\"tile {$tile_css}";
     $preview.= "\">";
     $preview.= "<h4 class=\"article-tag\">{$article_tag}</h4>";
     $preview.= "<a href=\"#\"><img src=\"{$icon_link}\" alt=\"img\" class=\"icon\"></a> <!--350px x 200px-->";
     $preview.= "<a href=\"#\"><p class=\"title\">{$title}</p></a>";
-    $preview.=  "</div> <!--tile second-column--></div> <!--column-->";
+    $preview.= "</div> <!--tile second-column--></div> <!--column-->";
+    //echo $preview;
     return $preview;
   }
 
