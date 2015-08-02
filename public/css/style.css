@@ -985,7 +985,13 @@ content: "\2014 \2009";
 .status-not-available{
   color: red;
 }
-
+.article_preview_col{
+  height: 360px;
+  border-left: 1px solid #eee;
+}
+#article_preview{
+  padding: 10px 10px 10px 10px;
+}
 
 @media screen and (max-width:768px){
   #main-section{

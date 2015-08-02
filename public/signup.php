@@ -26,7 +26,7 @@
 		<input type="text" placeholder="new username" id="username" name="username"
 		value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" required
        oninvalid="this.setCustomValidity('User ID is a must')" oninput="setCustomValidity('')"></input>
-			 <span id="user-availability-status"></span>
+			 <span id="username_availability_status"></span>
 			 <!--<input type="button" value="Check Availability" onsubmit="signup.php"></input>-->
 			 <br>
 		<input type="password" placeholder="password" id="password" name="password" required

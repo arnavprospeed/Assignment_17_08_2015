@@ -75,9 +75,6 @@
 		<br>
 		<!-- Icon image upload -->
 		Select an icon image to upload:&nbsp&nbsp&nbsp<input type="file" name="icon_image" id="icon_image"></input>
-
-
-
 		<br>
 
 		<!-- Name of file -->
@@ -87,7 +84,8 @@
 		<br>
 		<br>
 
-		<input type="submit" id="submit" name="submit"></input>
+		<input type="submit" id="submit" name="submit"></input>&nbsp
+		<input type="button" id="article_preview_button" name="article_preview_button" value="Preview" onclick="article_preview()"></input>
 	</form>
 	<?php
 	if(isset($update_confirmation)){
@@ -96,12 +94,13 @@
 	?>
 	<br>
 </div>
-<div class="col-md-6 col-sm-12 col-xs-12">
+<div class="col-md-6 col-sm-12 col-xs-12 article_preview_col">
 	<h3>preview</h3>
+	<div id="article_preview"></div>
 </div>
 </div>
 	<hr>
-	<br><br>
+	
 </div>
 </div>
 <?php include("../includes/layouts/footer.php"); ?>

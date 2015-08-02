@@ -113,12 +113,34 @@ function validateForm() {
        alert("yo");
     return true;
 }
+
 $( "#username" ).keyup(function() {
 
-  $("#username_availability_result").show();
+  $("#username_availability_status").show();
+  if($('#username').val.length<6){
+    document.getElementById("username_availability_status").innerHTML = "Too short!";
+  }
+  else{
+    document.getElementById("username_availability_status").innerHTML = "";
+    jQuery.ajax({
+      url: "check_free_username.php",
+      data:'username='+$("#username").val(),
+      type: "POST",
+      success:function(data){
+        $("#username_availability_status").html(data);
+      },
+      error:function (){}
+    });
+  }
+
+});
+
+function article_preview() {
+
+  $("#article_preview").show();
   jQuery.ajax({
-    url: "check_free_username.php",
-    data:'username='+$("#username").val(),
+    url: "article_preview.php",
+    data:$("#update-home").serialize(),
     type: "POST",
     success:function(data){
       $("#user-availability-status").html(data);
@@ -126,8 +148,7 @@ $( "#username" ).keyup(function() {
     },
     error:function (){}
   });
-
-});
+}
 
 
 $(document).ready(function(){

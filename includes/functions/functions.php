@@ -210,6 +210,7 @@
     return true;
   }
 
+
   function upload_image($type){
     $target_dir = "img/";
     $target_file = $target_dir . basename($_FILES["icon_image"]["name"]);
@@ -244,8 +245,20 @@
   }
   else {
     echo "Sorry";
+    return $icon_link;
   }
 }
+  function generate_article_preview($title,$article_tag,$tile_css){
+    $icon_link=upload_image("preview");
+    $preview="<div class=\"tile col-md-4 col-sm-6 col-xs-12\">
+            <div class=\"tile {$tile_css}";
+    $preview.= "\">";
+    $preview.= "<h4 class=\"article-tag\">{$article_tag}</h4>";
+    $preview.= "<a href=\"#\"><img src=\"{$icon_link}\" alt=\"img\" class=\"icon\"></a> <!--350px x 200px-->";
+    $preview.= "<a href=\"#\"><p class=\"title\">{$title}</p></a>";
+    $preview.=  "</div> <!--tile second-column--></div> <!--column-->";
+    return $preview;
+  }
 
 
 
