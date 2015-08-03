@@ -140,6 +140,21 @@ $( "#username" ).keyup(function() {
 
 });
 
+
+function show_articles() {
+  //alert("hello");
+  jQuery.ajax({
+    url: "get_articles_list.php",
+    data:'article_type='+$("#article_type").val()+'&article_tag='+$("#article_tag").val(),
+    type: "POST",
+    success:function(data){
+      $("#articles_list").html(data);
+    },
+    error:function (){}
+    });
+  }
+
+
 //article preview on clicking 'preview button'
 function article_preview() {
   $("progress").show();
@@ -187,26 +202,26 @@ function configureDropDownLists(article_type,article_tag) {
     any=(news.concat(reviews).concat(trailers)).concat(tweaks);
 
     switch (article_type.value) {
-        case 'any':
+        case 'Any':
             article_tag.options.length = 0;
             createOption(article_tag,"Any","Any")
             for (i = 0; i < any.length; i++) {
               createOption(article_tag, any[i], any[i]);
         }
             break;
-        case 'news':
+        case 'News':
             article_tag.options.length = 0;
             for (i = 0; i < news.length; i++) {
                 createOption(article_tag, news[i], news[i]);
             }
             break;
-        case 'reviews':
+        case 'Reviews':
             article_tag.options.length = 0;
         for (i = 0; i < reviews.length; i++) {
             createOption(article_tag, reviews[i], reviews[i]);
             }
             break;
-        case 'trailers':
+        case 'Trailers':
             article_tag.options.length = 0;
             for (i = 0; i < trailers.length; i++) {
                 createOption(article_tag, trailers[i], trailers[i]);
@@ -237,17 +252,3 @@ function createOption(article_type, text, value) {
   opt.text = text;
   article_type.options.add(opt);
 }
-
-function show_articles_list(){
-  //$("#username_availability_status").show();
-  var formData = new FormData($('#delete_article')[0]);
-  jQuery.ajax({
-    url: "get_articles_list.php",
-    data:formData,
-    type: "POST",
-    success:function(data){
-      $("#articles_list").html(data);
-    },
-    error:function (){}
-    });
-  }

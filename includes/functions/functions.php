@@ -281,22 +281,22 @@
 
   function generate_articles_list($article_type,$article_tag){
     global $connection;
-    echo "hey";
-    if($article_type=="any"&&$article_tag=="any")
+    //echo "hey{$article_tag}{$article_type}";
+    if($article_type=="Any"&&$article_tag=="Any")
     {
       $query="SELECT * FROM articles_list";
       $result=mysqli_query($connection,$query);
-      echo "$query";
+      //echo "$query";
     }
-    else if($article_tag="any"){
+    else if($article_tag="Any"){
       $query="SELECT * FROM articles_list where article_type='{$article_type}'";
       $result=mysqli_query($connection,$query);
-      echo "$query";
+      //echo "$query";
     }
     else{
       $query="SELECT * FROM articles_list where article_tag='{$article_tag}'";
       $result=mysqli_query($connection,$query);
-      echo "$query";
+      //echo "$query";
     }
     if($result){
       return $result;
@@ -304,6 +304,44 @@
     else{
       echo "articles list fetch failed";
     }
+  }
+
+  function delete_article($article_id){
+    global $connection;
+    $query="SELECT link,icon_link FROM articles_list WHERE article_id={$article_id}";
+    echo $query;
+    $result=mysqli_query($connection,$query);
+    $row=mysqli_fetch_assoc($result);
+    if($result){
+      if(delete_article_page($row['link'],$row['icon_link'])){
+        $query="DELETE FROM articles_list WHERE article_id='";
+        $query.=$article_id;
+        $query.="'";
+        echo $query;
+        $result=mysqli_query($connection,$query);
+        if($result){
+          return true;
+        }
+        else {
+            return false;
+          }
+      }
+      else{
+        return false;
+      }
+    }
+    else{
+      return false;
+  }
+}
+
+  function delete_article_page($link,$icon_link){
+    if(unlink($link)&&unlink($icon_link)){
+      return true;
+    }
+    else{
+      return false;
+      }
   }
 
 /******************** DELETE ARTICLES PAGE CMS **************************/

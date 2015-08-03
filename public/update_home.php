@@ -10,7 +10,7 @@
 			$result=add_article($_POST['title'],$_POST['article_type'],$_POST['article_tag'],$_POST['tile_css'],$link,$icon_link);
 			if($result){
 				$_POST = array();
-				$update_confirmation="<p class=\"update-confirmed\">Page updated successfully. Go to <a href=\"index.php\">Home page</a> to preview.<p>";
+				$update_confirmation="<p class=\"update-confirmed\">Page updated successfully. Go to <a href=\"index.php\">Home page</a> to review.<p>";
 			}
 			else $update_confirmation="Adding article failed";
 		}
@@ -47,10 +47,10 @@
 		Article type:
 		 <select id="article_type" name="article_type" required
 				onchange="configureDropDownLists(this,document.getElementById('article_tag'))">
-				 <option value="news">News</option>
-				 <option value="reviews">Reviews</option>
-				 <option value="trailers">Trailers</option>
-				 <option value="tweaks">Tweaks</option>
+				 <option value="News">News</option>
+				 <option value="Reviews">Reviews</option>
+				 <option value="Trailers">Trailers</option>
+				 <option value="Tweaks">Tweaks</option>
 		 </select>
 		&nbsp&nbsp&nbsp
 
