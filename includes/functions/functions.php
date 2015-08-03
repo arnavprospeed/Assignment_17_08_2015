@@ -308,35 +308,59 @@
 
   function delete_article($article_id){
     global $connection;
-    $query="SELECT link,icon_link FROM articles_list WHERE article_id={$article_id}";
-    echo $query;
-    $result=mysqli_query($connection,$query);
-    $row=mysqli_fetch_assoc($result);
-    if($result){
-      if(delete_article_page($row['link'],$row['icon_link'])){
-        $query="DELETE FROM articles_list WHERE article_id='";
-        $query.=$article_id;
-        $query.="'";
-        echo $query;
-        $result=mysqli_query($connection,$query);
-        if($result){
-          return true;
-        }
-        else {
-            return false;
-          }
+    $error="";
+
+    //Article page to be deleted
+    $query="SELECT link FROM articles_list WHERE article_id={$article_id}";
+    //echo $query;
+    $files=mysqli_query($connection,$query);
+    $row=mysqli_fetch_assoc($files);
+    if($files){
+      if(delete_file($row['link'])){
+        $error.="Page deletion successful.<br>";
       }
       else{
-        return false;
+        $error.="Page deletion failed. File may not exist.<br>";
       }
     }
     else{
-      return false;
-  }
+      $error.="Page link not available.<br>";
+    }
+
+    //Icon image to be deleted
+    $query="SELECT icon_link FROM articles_list WHERE article_id={$article_id}";
+    //echo $query;
+    $files=mysqli_query($connection,$query);
+    $row=mysqli_fetch_assoc($files);
+    if($files){
+      if(delete_file($row['icon_link'])){
+        $error.="Icon image deletion successful.<br>";
+      }
+      else{
+        $error.="Icon image deletion failed. File may not exist.<br>";
+      }
+    }
+    else{
+      $error.="Icon link not available.<br>";
+    }
+
+    $query="DELETE FROM articles_list WHERE article_id='";
+    $query.=$article_id;
+    $query.="'";
+    //echo $query;
+    $result=mysqli_query($connection,$query);
+    if($result){
+      $error.="Article entry deleted.<br>";
+    }
+    else{
+      $error.="Article deletion failed.<br>";
+    }
+    return $error;
+
 }
 
-  function delete_article_page($link,$icon_link){
-    if(unlink($link)&&unlink($icon_link)){
+  function delete_file($link){
+    if(unlink($link)){
       return true;
     }
     else{

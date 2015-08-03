@@ -3,12 +3,13 @@
 
 <?php
 if(isset($_POST['delete_selected'])){
-  echo "Submitted";
+  //echo "Submitted";
   if($_POST['selected_article']){
     $result=delete_article($_POST['selected_article']);
     if($result){
       $_POST = array();
-      $update_confirmation="<p class=\"update-confirmed\">Page deleted successfully. Go to <a href=\"index.php\">Home page</a> to review changes.<p>";
+      $update_confirmation=$result;
+      $update_confirmation.="<p class=\"update-confirmed\">Page deleted successfully. Go to <a href=\"index.php\">Home page</a> to review changes.<p>";
     }
     else $update_confirmation="Deleting article failed";
   }
