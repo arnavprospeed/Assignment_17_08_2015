@@ -3,7 +3,7 @@
 <?php
 
 $preview=generate_article_preview($_POST['title'],$_POST['article_tag'],$_POST['tile_css']);
-if($_FILES["icon_image"]){echo "Yes";}
+//if($_FILES["icon_image"]){echo "Yes";}
 if($preview){
     echo $preview;
 }

@@ -277,4 +277,35 @@
 
 /******************** UPDATE HOME PAGE CMS **************************/
 
+/******************** DELETE ARTICLES PAGE CMS **************************/
+
+  function generate_articles_list($article_type,$article_tag){
+    global $connection;
+    echo "hey";
+    if($article_type=="any"&&$article_tag=="any")
+    {
+      $query="SELECT * FROM articles_list";
+      $result=mysqli_query($connection,$query);
+      echo "$query";
+    }
+    else if($article_tag="any"){
+      $query="SELECT * FROM articles_list where article_type='{$article_type}'";
+      $result=mysqli_query($connection,$query);
+      echo "$query";
+    }
+    else{
+      $query="SELECT * FROM articles_list where article_tag='{$article_tag}'";
+      $result=mysqli_query($connection,$query);
+      echo "$query";
+    }
+    if($result){
+      return $result;
+    }
+    else{
+      echo "articles list fetch failed";
+    }
+  }
+
+/******************** DELETE ARTICLES PAGE CMS **************************/
+
 ?>

@@ -34,7 +34,7 @@
 	<!-- heading -->
 	<h3> Enter details Home page: New article</h3>
 	<!-- form -->
-	<form name="update-home" id="update-home" action="update-home.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+	<form name="update_home" id="update_home" action="update_home.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
 
 		<!-- Title of article -->
 		<input  class="input-text rich-text" type="text" placeholder="Title" id="title" name="title"
@@ -99,7 +99,7 @@
 	<div id="article_preview"></div>
 </div>
 </div>
-	
+
 
 </div>
 </div>
