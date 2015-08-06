@@ -34,7 +34,7 @@
 	<!-- heading -->
 	<h3> Enter details Home page: New article</h3>
 	<!-- form -->
-	<form name="update_home" id="update_home" action="update_home.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+	<form name="create_article" id="create_article" action="create_article.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
 
 		<!-- Title of article -->
 		<input  class="input-text rich-text" type="text" placeholder="Title" id="title" name="title"
