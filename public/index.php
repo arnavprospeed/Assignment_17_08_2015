@@ -1,8 +1,6 @@
 <?php require_once("../includes/functions/functions.php"); ?>
 <?php require_once("../includes/functions/db_connection.php"); ?>
 <?php require_once("../includes/layouts/header.php"); ?>
-<?php include("../includes/layouts/carousel_slide.php"); ?>
-
 
 
   <div class="main">

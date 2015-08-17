@@ -138,20 +138,27 @@
 
 /******************** UPDATE HOME PAGE CMS **************************/
 
-  function fetch_article_list($article_type,$limit){
-    $query="SELECT * FROM articles_list where article_type=\"";
-    $query.="{$article_type}";
-    $query.="\" ORDER BY published_date DESC LIMIT ";
-    $query.="{$limit}";
-    //echo $query;
+  function fetch_course_name($course_id){
     global $connection;
+    $query="SELECT course_name FROM course_list WHERE course_id={$course_id}";
     $result=mysqli_query($connection,$query);
-    return $result;
-  }
 
-  function fetch_tile_css(){
+    if(!$result){
+
+      echo "Query failed";
+    }
+    else{
+      $row=mysqli_fetch_assoc($result);
+      $result=$row["course_name"];
+      return $result;
+    }
+  }
+  function fetch_course_list(){
     global $connection;
-    $query="SELECT * FROM tile_css ORDER BY position ASC";
+    $query="SELECT * FROM course_list ORDER BY published_date DESC";
+
+    echo $query;
+
     $result=mysqli_query($connection,$query);
     if(!$result){
       echo "Query failed";
@@ -159,9 +166,13 @@
     else
       return $result;
   }
-  function fetch_article_tags(){
+
+  function fetch_section_list($course_name){
     global $connection;
-    $query="SELECT * FROM article_tags_list";
+    $query="SELECT * FROM {$course_name} ORDER BY position ASC";
+
+    //echo $query;
+
     $result=mysqli_query($connection,$query);
     if(!$result){
       echo "Query failed";
@@ -170,20 +181,54 @@
       return $result;
   }
 
-  function add_article($title,$article_type,$article_tag,$tile_css,$link,$icon_link){
+  function add_section($course_name,$section_name,$position){
     global $connection;
-    $query="INSERT INTO articles_list (title,article_type,article_tag,css_class,link,icon_link,published_date) VALUES('";
+    $query="INSERT INTO {$course_name} (name,position) VALUES('{$section_name}',{$position})";
 
-    $query.="{$title}','{$article_type}','{$article_tag}','{$tile_css}','{$link}','{$icon_link}',now()";
-    $query.=")";
     //echo $query;
+
+    $result=mysqli_query($connection,$query);
+    if(!$result){
+      echo "Query failed";
+    }
+    else
+      return $result;
+  }
+
+  function fetch_course_category(){
+    global $connection;
+    $query="SELECT * FROM course_category ORDER BY category_id ASC";
+    echo $query;
+    $result=mysqli_query($connection,$query);
+    if(!$result){
+      echo "Query failed";
+    }
+    else
+      return $result;
+  }
+
+  function validate($title,$category_id,$author,$MRP,$SP){
+    return true;
+  }
+
+  function add_course($title,$category_id,$author,$MRP,$SP){
+    global $connection;
+    $query="INSERT INTO course_list (course_name,category_id,author,published_date,MRP,SP) VALUES('";
+
+    $query.="{$title}',{$category_id},'{$author}',now(),{$MRP},{$SP}";
+    $query.=");";
+    $query_section="CREATE TABLE {$title} (name VARCHAR(20) NOT NULL,id INT(3) NOT NULL AUTO_INCREMENT,";
+    $query_section.="description VARCHAR(200), position INT(3) NOT NULL, PRIMARY KEY(id))";
+    echo $query;
+
     $result=mysqli_query($connection,$query);
 
     if($result){
-				if(create_article_page(mysqli_insert_id($connection)))
-          return true;
-        else {
-          return false;
+      $result1=mysqli_query($connection,$query_section);
+			   if($result1)
+            return true;
+         else {
+            return false;
         }
     }
     else{

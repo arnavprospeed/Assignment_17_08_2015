@@ -1,7 +1,7 @@
 <?php session_start(); ?>
-<?php include("../includes/layouts/header.php"); ?>
 <?php require_once("../includes/functions/functions.php"); ?>
 <?php require_once("../includes/functions/db_connection.php"); ?>
+
 <?php
 	if(isset($_GET["signedup"]))
 	{
@@ -20,8 +20,7 @@
 		}
 	}
 ?>
-<html>
-<body>
+<?php include("../includes/layouts/header.php"); ?>
 	<div id="main">
 		<h3> Log in:</h3>
 		<form name="login" action="index.php" method="POST">
@@ -42,5 +41,5 @@
 		<a href="signup.php">Sign up for new account for free!</a>
 		<br>
 	</div>
-</body>
+
 <?php include("../includes/layouts/footer.php"); ?>
