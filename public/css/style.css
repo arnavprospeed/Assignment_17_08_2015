@@ -1,9 +1,9 @@
 header{
-  height: 150px;
+  height: 100px;
   color: white;
   background-color: rgb(93, 142, 23);
   text-align: center;
-  padding-top:1%;
+  padding-top:10px;
 }
 #footer-div{
   height: 50px;
@@ -11,10 +11,22 @@ header{
   text-align: center;
   padding-top:1%;
   color: white;
+
+  float: bottom;
 }
-#main{
-  height: 470px;
+.main{
+  min-height: 516px;
+}
+.add-course{
+  border-right: 1px solid #EEE;
+}
+.select-course{
+  padding-left: 40px;
 }
 #invalid_cred{
   color:red;
+}
+.form_new_course td{
+  padding: 10px 10px 10px 10px;
+  width:170px;
 }

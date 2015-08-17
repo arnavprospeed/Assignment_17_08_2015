@@ -32,7 +32,7 @@
 		<br><br>
 
 <div class="row">
-	<div class="col-md-6 col-sm-12 col-xs-12">
+	<div class="col-md-6 col-sm-12 col-xs-12 add-course">
 	<!-- heading -->
 	<h2>Add new courses</h2>
 	<h3> Enter details for new course</h3>
@@ -40,56 +40,61 @@
 	<form name="add_course" id="add_course" action="add_course.php" method="POST" onsubmit="return validateNewCourse()">
 
 		<!-- Title of course -->
-		Course Title:
-		<input  class="input-text rich-text" type="text" placeholder="Course title" id="course_title" name="course_title"
-		value="<?php echo isset($_POST['course_title']) ? $_POST['course_title'] : '' ?>" required
-       oninvalid="this.setCustomValidity('Course title is a must')" oninput="setCustomValidity('')"></input>
+		<table class="form_new_course">
+			<tr>
+				<td>Course Title:</td>
+				<td><input  class="input-text rich-text" type="text" placeholder="Course title" id="course_title" name="course_title"
+				value="<?php echo isset($_POST['course_title']) ? $_POST['course_title'] : '' ?>" required
+		       oninvalid="this.setCustomValidity('Course title is a must')" oninput="setCustomValidity('')"></input></td>
+		 </tr>
 
-	 <br>
-	 <br>
 
-
-
+		 <tr>
 		<!-- Course category -->
-		Course Category:
-		<select id="course_category" name="course_category" required
+		<td>Course Category:</td>
+		<td><select id="course_category" name="course_category" required
 		 	 oninvalid="this.setCustomValidity('Please provide a course category')" oninput="setCustomValidity('')">
 		 		<?php
 				$course_category=fetch_course_category();
 				while($course_category_row=mysqli_fetch_assoc($course_category)){
 					echo "<option value=\"".$course_category_row["category_id"]."\">".$course_category_row["category_name"]."</option>";
 				}?>
-		</select>
-		<br>
-		<br>
+		</select></td>
+		</tr>
 
 		<!-- Author of course -->
-		Author:
-		<input  class="input-text rich-text" type="text" placeholder="Author" id="author" name="author"
-		value="<?php echo isset($_POST['author']) ? $_POST['author'] : '' ?>" required
-			 oninvalid="this.setCustomValidity('Author is a must')" oninput="setCustomValidity('')"></input>
+		<tr>
+			<td>Author:</td>
+			<td><input  class="input-text rich-text" type="text" placeholder="Author" id="author" name="author"
+			value="<?php echo isset($_POST['author']) ? $_POST['author'] : '' ?>" required
+				 oninvalid="this.setCustomValidity('Author is a must')" oninput="setCustomValidity('')"></input>
+			</td>
+		</tr>
 
-	 <br>
-	 <br>
+		<tr>
+			<!-- MRP of Course -->
+			<td>MRP of course:</td>
+			<td>
+			<input class="MRP" type="text" placeholder="MRP of the course" id="MRP" name="MRP"
+			value="<?php echo isset($_POST['MRP']) ? $_POST['MRP'] : '' ?>" required
+			   oninvalid="this.setCustomValidity('Please enter MRP')" oninput="setCustomValidity('')"></input>
+			</td>
+		</tr>
 
-		<!-- MRP of Course -->
-		MRP of course:
-		<input class="MRP" type="text" placeholder="MRP of the course" id="MRP" name="MRP"
-		value="<?php echo isset($_POST['MRP']) ? $_POST['MRP'] : '' ?>" required
-		   oninvalid="this.setCustomValidity('Please enter MRP')" oninput="setCustomValidity('')"></input>&nbsp
-		<br>
-		<br>
-		Selling price of course:
-		<input class="SP" type="text" placeholder="Selling Price of the course" id="SP" name="SP"
-		value="<?php echo isset($_POST['SP']) ? $_POST['SP'] : '' ?>" required
-			 oninvalid="this.setCustomValidity('Please enter SP')" oninput="setCustomValidity('')"></input>&nbsp
-		<br>
-		<br>
+		<tr>
+			<td>Selling price of course:</td>
+			<td>
+			<input class="SP" type="text" placeholder="Selling Price of the course" id="SP" name="SP"
+			value="<?php echo isset($_POST['SP']) ? $_POST['SP'] : '' ?>" required
+				 oninvalid="this.setCustomValidity('Please enter SP')" oninput="setCustomValidity('')"></input>
+			</td>
+		</tr>
+		<tr>
+			<td><input type="submit" id="submit" name="submit"></input>&nbsp</td>
+		</tr>
 
-		<input type="submit" id="submit" name="submit"></input>&nbsp
-
+		</table>
 	</form>
-
 	<?php
 	if(isset($validity)){
 		if(!$validity)
@@ -106,7 +111,7 @@
 	?>
 	<br>
 </div>
-<div class="col-md-6 col-sm-12 col-xs-12 article_preview_col">
+<div class="col-md-6 col-sm-12 col-xs-12 select-course">
 
 	<div id="course_list">
 		<!-- heading -->
@@ -115,13 +120,15 @@
 		<!-- form -->
 		<form name="edit_course" id="edit_course" action="edit_course.php" method="POST" onsubmit="return validateNewCourse()">
 			<?php
-				
+
 				$course_list=fetch_course_list();
 
 				while($course_list_row=mysqli_fetch_assoc($course_list)){
 					echo "<input type=\"radio\" name=\"course_id\" id=\"course_id\" value=\"".$course_list_row["course_id"]."\">".$course_list_row["course_name"]."</option><br>";
 				}
+
 			?>
+			<br>
 			<input type="submit" id="submit" name="submit" value="Edit Course"></input>
 		</form>
 	</div>

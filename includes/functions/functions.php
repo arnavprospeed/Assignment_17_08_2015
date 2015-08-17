@@ -157,7 +157,7 @@
     global $connection;
     $query="SELECT * FROM course_list ORDER BY published_date DESC";
 
-    echo $query;
+    //echo $query;
 
     $result=mysqli_query($connection,$query);
     if(!$result){
@@ -181,9 +181,9 @@
       return $result;
   }
 
-  function add_section($course_name,$section_name,$position){
+  function fetch_video_list($section_name){
     global $connection;
-    $query="INSERT INTO {$course_name} (name,position) VALUES('{$section_name}',{$position})";
+    $query="SELECT * FROM {$section_name} ORDER BY position ASC";
 
     //echo $query;
 
@@ -195,10 +195,34 @@
       return $result;
   }
 
+  function add_section($course_name,$section_name,$position){
+    global $connection;
+    $query="INSERT INTO {$course_name} (name,position) VALUES('{$section_name}',{$position})";
+
+    $query_video="CREATE TABLE {$section_name} (name VARCHAR(20) NOT NULL,id INT(3) NOT NULL AUTO_INCREMENT,";
+    $query_video.="position INT(3) NOT NULL, video_link VARCHAR(200) NOT NULL, video_format VARCHAR(5) NOT NULL,PRIMARY KEY(id))";
+    //echo $query;
+
+    $result=mysqli_query($connection,$query);
+    if(!$result){
+      echo "Query failed";
+    }
+    else{
+      $result=mysqli_query($connection,$query_video);
+      if(!$result){
+        echo "Query failed";
+
+      }
+      else {
+        return $result;
+      }
+    }
+  }
+
   function fetch_course_category(){
     global $connection;
     $query="SELECT * FROM course_category ORDER BY category_id ASC";
-    echo $query;
+    //echo $query;
     $result=mysqli_query($connection,$query);
     if(!$result){
       echo "Query failed";
@@ -219,7 +243,7 @@
     $query.=");";
     $query_section="CREATE TABLE {$title} (name VARCHAR(20) NOT NULL,id INT(3) NOT NULL AUTO_INCREMENT,";
     $query_section.="description VARCHAR(200), position INT(3) NOT NULL, PRIMARY KEY(id))";
-    echo $query;
+    //echo $query;
 
     $result=mysqli_query($connection,$query);
 
