@@ -181,15 +181,16 @@
       return $result;
   }
 
-  function fetch_video_list($section_name){
+  function fetch_video_list($course_name,$section_name){
     global $connection;
-    $query="SELECT * FROM {$section_name} ORDER BY position ASC";
+    $query="SELECT * FROM {$course_name}_{$section_name} ORDER BY position ASC";
 
     //echo $query;
 
     $result=mysqli_query($connection,$query);
     if(!$result){
       echo "Query failed";
+      return $result;
     }
     else
       return $result;
@@ -199,10 +200,12 @@
     global $connection;
     $query="INSERT INTO {$course_name} (name,position) VALUES('{$section_name}',{$position})";
 
-    $query_video="CREATE TABLE {$section_name} (name VARCHAR(20) NOT NULL,id INT(3) NOT NULL AUTO_INCREMENT,";
+    $query_video="CREATE TABLE {$course_name}_{$section_name} (name VARCHAR(20) NOT NULL,id INT(3) NOT NULL AUTO_INCREMENT,";
     $query_video.="position INT(3) NOT NULL, video_link VARCHAR(200) NOT NULL, video_format VARCHAR(5) NOT NULL,PRIMARY KEY(id))";
     //echo $query;
-
+    if (!file_exists('courses/'.$course_name.'/'.$section_name)) {
+    mkdir('courses/'.$course_name.'/'.$section_name, 0777, true);
+    }
     $result=mysqli_query($connection,$query);
     if(!$result){
       echo "Query failed";
@@ -244,7 +247,9 @@
     $query_section="CREATE TABLE {$title} (name VARCHAR(20) NOT NULL,id INT(3) NOT NULL AUTO_INCREMENT,";
     $query_section.="description VARCHAR(200), position INT(3) NOT NULL, PRIMARY KEY(id))";
     //echo $query;
-
+    if (!file_exists('courses/'.$title)) {
+    mkdir('courses/'.$title, 0777, true);
+    }
     $result=mysqli_query($connection,$query);
 
     if($result){
@@ -280,42 +285,67 @@
   }
 
 
-  function upload_image($type){
-    $target_dir = "img/";
-    $target_file = $target_dir . basename($_FILES["icon_image"]["name"]);
+  function upload_video($course_name,$section_name){
+    $target_dir = "videos/";
+    $target_dir.=$course_name."/".$section_name."/";
+    if (!file_exists($target_dir)) {
+    mkdir($target_dir, 0777, true);
+    }
+    echo $target_dir;
+    $target_file = $target_dir . basename($_FILES["video"]["name"]);
     $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $videoFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
     // Check if image file is a actual image or fake image
-    $check = getimagesize($_FILES["icon_image"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
+    $fhandle = finfo_open(FILEINFO_MIME);
+    $mime = finfo_file($fhandle,$_FILES["video"]["tmp_name"]);
+
+    if(strstr($mime, "video/")) {
+        echo "File is a video - " . $mime . ".";
         $uploadOk = 1;
     } else {
-        echo "File is not an image.";
+        echo "File is not a video.";
         $uploadOk = 0;
     }
 
     if (file_exists($target_file)) {
-    echo "Sorry, file already exists. Using existing image. To Change image upload with a different name";
+    echo "Sorry, file already exists. Using existing video";
     $uploadOk = 0;
     }
-    $icon_link=$target_dir .$_FILES["icon_image"]["name"];
+    $video_link=$target_dir .$_FILES["video"]["name"];
     if($uploadOk==1){
-      if (move_uploaded_file($_FILES["icon_image"]["tmp_name"], $target_file)) {
-          echo "The file ". basename( $_FILES["icon_image"]["name"]). " has been uploaded.";
-          //echo $icon_link;
-          return $icon_link;
+      if (move_uploaded_file($_FILES["video"]["tmp_name"], $target_file)) {
+          echo "The file ". basename( $_FILES["video"]["name"]). " has been uploaded.";
+          //echo $video_link;
+          return $video_link;
       } else {
           echo "Sorry, there was an error uploading your file.";
-          return $icon_link;
+          return $video_link;
     }
   }
   else {
     //echo "Sorry";
-    return $icon_link;
+    return $video_link;
   }
 }
+
+  function add_video($course_name,$section_name,$video_link,$position){
+    global $connection;
+    $fhandle = finfo_open(FILEINFO_MIME);
+    $video_format = finfo_file($fhandle,$_FILES["video"]["tmp_name"]);
+    $arr=(explode(';',$video_format));
+    $video_format=$arr[0];
+    $query="INSERT INTO {$course_name}_{$section_name} (name,position,video_link,video_format) VALUES('";
+    $query.=$_FILES["video"]["name"]."',{$position},'{$video_link}','{$video_format}')";
+    echo $query;
+    $result=mysqli_query($connection,$query);
+    if($result){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   function unserializeForm($str) {
     $returndata = array();

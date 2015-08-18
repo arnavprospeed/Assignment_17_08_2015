@@ -1,13 +1,13 @@
 header{
   height: 100px;
   color: white;
-  background-color: rgb(93, 142, 23);
+  background-color: rgb(67, 94, 107);
   text-align: center;
   padding-top:10px;
 }
 #footer-div{
   height: 50px;
-  background-color: rgb(93, 142, 23);
+  background-color: rgb(67, 94, 107);
   text-align: center;
   padding-top:1%;
   color: white;
@@ -29,4 +29,13 @@ header{
 .form_new_course td{
   padding: 10px 10px 10px 10px;
   width:170px;
+}
+.course_name_title{
+  margin-top: 10px;
+}
+.video_col{
+  padding:20px 20px 20px 20px;
+}
+#video_preview{
+  margin-top: -70px;
 }
