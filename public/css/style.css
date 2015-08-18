@@ -26,14 +26,39 @@ header{
 #invalid_cred{
   color:red;
 }
+
 .form_new_course td{
   padding: 10px 10px 10px 10px;
-  width:170px;
+  width:200px;
+}
+.form-control{
+  width: 200px;
+}
+.greetings{
+  float:right;
+  position:absolute;
+  margin-top: -50px;
+  margin-left: 20px;
+}
+.logout{
+  float: left;
+  margin-top: -50px;
+  margin-left: 20px;
+  color: black;
+
 }
 .course_name_title{
   margin-top: 10px;
 }
+#add_section{
+  display: none;
+}
+#add_video{
+  display: none;
+}
 .video_col{
+  height: 450px;
+  border-left: 1px solid #EEE;
   padding:20px 20px 20px 20px;
 }
 #video_preview{

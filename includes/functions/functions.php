@@ -195,6 +195,19 @@
     else
       return $result;
   }
+  function get_video_link($section_name,$video_id){
+    global $connection;
+    $query="SELECT video_link FROM {$section_name} WHERE id={$video_id}";
+    //echo $query;
+    $result=mysqli_query($connection,$query);
+    $video_row=mysqli_fetch_assoc($result);
+    if($result)
+      return $video_row["video_link"];
+    else{
+      echo "failed";
+      return null;
+    }
+  }
 
   function add_section($course_name,$section_name,$position){
     global $connection;
@@ -286,7 +299,7 @@
 
 
   function upload_video($course_name,$section_name){
-    $target_dir = "videos/";
+    $target_dir = "courses/";
     $target_dir.=$course_name."/".$section_name."/";
     if (!file_exists($target_dir)) {
     mkdir($target_dir, 0777, true);
@@ -301,7 +314,7 @@
     $mime = finfo_file($fhandle,$_FILES["video"]["tmp_name"]);
 
     if(strstr($mime, "video/")) {
-        echo "File is a video - " . $mime . ".";
+        //echo "File is a video - " . $mime . ".";
         $uploadOk = 1;
     } else {
         echo "File is not a video.";
@@ -315,7 +328,7 @@
     $video_link=$target_dir .$_FILES["video"]["name"];
     if($uploadOk==1){
       if (move_uploaded_file($_FILES["video"]["tmp_name"], $target_file)) {
-          echo "The file ". basename( $_FILES["video"]["name"]). " has been uploaded.";
+          //echo "The file ". basename( $_FILES["video"]["name"]). " has been uploaded.";
           //echo $video_link;
           return $video_link;
       } else {
@@ -332,7 +345,7 @@
   function add_video($course_name,$section_name,$video_link,$position){
     global $connection;
     $fhandle = finfo_open(FILEINFO_MIME);
-    $video_format = finfo_file($fhandle,$_FILES["video"]["tmp_name"]);
+    $video_format = finfo_file($fhandle,'courses/'.$course_name.'/'.$section_name.'/'.$_FILES["video"]["name"]);
     $arr=(explode(';',$video_format));
     $video_format=$arr[0];
     $query="INSERT INTO {$course_name}_{$section_name} (name,position,video_link,video_format) VALUES('";

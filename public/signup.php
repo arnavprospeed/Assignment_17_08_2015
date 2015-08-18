@@ -3,12 +3,12 @@
 <?php require_once("../includes/functions/db_connection.php"); ?>
 <?php
 	if(isset($_POST["username"])){
-		if(check_available($_POST["username"])&&validateCred($_POST["username"],$_POST["password"])){
+		if(check_free_username($_POST["username"])&&validateCred($_POST["username"],$_POST["password"])){
 				//echo "Username available";
 
 				if(createUser($_POST["username"],$_POST["password"],$_POST["name"],$_POST["phone_no"],$_POST["email_id"])){
 
-					redirect("index.php?signedup=1");
+					redirect("login.php?signedup=1");
 					//echo "Account created successfully. Go to <a href=index.php>Log in</a> page.";
 				}
 		}

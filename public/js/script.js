@@ -1,6 +1,19 @@
 //CMS scripts
 
 //Sign up form validations
+
+
+function populateAddNewVideo(){
+  document.getElementById("add_section").style.display = "none";
+  document.getElementById("add_video").style.display = "inline";
+}
+
+function populateAddNewSection(){
+  document.getElementById("add_video").style.display = "none";
+  document.getElementById("add_section").style.display = "inline";
+
+}
+
 function validateForm() {
     //Phone number validation
     var x = document.forms["signup"]["phone_no"].value;
